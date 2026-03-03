@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../auth.context.jsx";
 
 import { login, register, logout, getCurrentUser } from "../services/auth.api";
@@ -55,6 +55,22 @@ export const useAuth = () => {
             setLoading(false);
         }
     };
+
+        useEffect(() => {
+        const getAndSetCurrentUser = async () => {
+            setLoading(true);
+            try {
+                const userData = await getCurrentUser();
+                setUser(userData.user);
+            } catch (error) {
+                console.error("Error fetching current user:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        getAndSetCurrentUser();
+    }, []);
 
     return { user, setUser, loading, setLoading, handleLogin, handleRegister, handleLogout, fetchCurrentUser };
 }
