@@ -82,7 +82,7 @@ const InterviewReportModel = mongoose.model(
   interviewReportSchema,
 );
 
-module.exports = InterviewReportSchema;
+module.exports = InterviewReportModel;
 
 
 
